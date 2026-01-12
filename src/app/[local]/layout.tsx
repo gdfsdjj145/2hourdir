@@ -161,14 +161,14 @@ export default async function RootLayout({
         <SpeedInsights></SpeedInsights>
         <Script
           strategy="lazyOnload"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-B315FBSZWP`}
+          src={`https://www.googletagmanager.com/gtag/js?id=G-9B756NQSY`}
         />
         <Script id="ga-script" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-B315FBSZWP');
+            gtag('config', 'G-9B756NQSY');
           `}
         </Script>
       </body>
