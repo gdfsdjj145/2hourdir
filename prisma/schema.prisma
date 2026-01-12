@@ -1,0 +1,224 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model DbUserDemo {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time DateTime @db.Date @default(now())
+  nickName     String
+  tenant_id    String?  @db.ObjectId
+}
+
+model Order {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time   DateTime @db.Date @default(now())
+  identifier     String
+  name           String
+  orderId        String   @unique
+  orderType      String
+  price          Float
+  promoter       String?
+  promotionPrice Float
+  transactionId  String   @unique
+}
+
+model PayOrder {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time  DateTime @db.Date
+  identifier String
+  orderType  String
+  price      Float
+  sign       String?
+  status     String
+}
+
+
+model Promotion {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  checkout       Boolean  @default(false)
+  created_time   DateTime @db.Date @default(now())
+  identifier     String
+  orderType      String
+  promotionPrice Float
+  purchaser      String
+}
+
+model User {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  avatar        String?
+  created_time  DateTime @db.Date @default(now())
+  email         String?
+  nickName      String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  phone         String?
+  wechatOpenId  String?
+  wechatUnionId String?
+
+  @@unique([wechatOpenId, phone, email])
+}
+
+model VerificationCode {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  code         String
+  created_time DateTime @db.Date @default(now())
+  identifier   String
+  expires_at   DateTime @db.Date
+}
+
+model VerificationWxQrCode {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time DateTime @db.Date @default(now())
+  identifier   String   @unique
+  isScan       Boolean
+  openId       String?
+}
+
+// ==========================================
+// 2 Hour Builder 导航站数据模型
+// ==========================================
+
+/// 输出分类 - 五大分类
+model Category {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time DateTime @db.Date @default(now())
+  updated_time DateTime @db.Date @default(now()) @updatedAt
+
+  slug         String   @unique              // URL 标识符：page, feature, script, content, product
+  title        String                        // 分类标题：写一个页面
+  subtitle     String?                       // 英文副标题：Page Output
+  description  String?                       // 分类描述
+  icon         String?                       // 图标名称：LuLayout
+  gradient     String?                       // 渐变色：from-blue-500 to-cyan-500
+  scenarios    String[]                      // 适用场景数组
+  defaultTool  String?                       // 默认推荐工具名
+  sortOrder    Int      @default(0)          // 排序权重
+  isActive     Boolean  @default(true)       // 是否启用
+
+  actions      Action[]                      // 关联的输出卡片
+}
+
+/// 2 Hour 输出卡片 - 核心内容
+model Action {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time DateTime @db.Date @default(now())
+  updated_time DateTime @db.Date @default(now()) @updatedAt
+
+  slug         String   @unique              // URL 标识符
+  title        String                        // 标题：2 小时上线一个 Landing Page
+  description  String?                       // 简短描述
+  difficulty   Int      @default(2)          // 难度：1-5
+  duration     Int      @default(120)        // 预计时长（分钟）
+  output       String                        // 输出物描述：可访问 URL
+
+  // 详细内容
+  goal         String?                       // 今日目标（一句话）
+  deliverables String[]                      // 输出物定义数组
+  doneDefinition String[]                    // 验收标准数组
+  pitfalls     String[]                      // 常见坑/放弃点
+  nextSteps    String[]                      // 完成后下一步
+
+  // 时间分配 - JSON 格式存储
+  timeAllocation Json?                       // [{duration: 20, task: "生成结构"}, ...]
+
+  // 关联
+  categoryId   String   @db.ObjectId         // 所属分类
+  category     Category @relation(fields: [categoryId], references: [id])
+  actionTools  ActionTool[]                  // 关联的工具
+
+  // 统计
+  viewCount    Int      @default(0)          // 浏览次数
+  completeCount Int     @default(0)          // 完成次数
+
+  // 状态
+  isRecommend  Boolean  @default(false)      // 是否推荐
+  sortOrder    Int      @default(0)          // 排序权重
+  isActive     Boolean  @default(true)       // 是否启用
+
+  @@index([categoryId])
+}
+
+/// 工具库
+model Tool {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time DateTime @db.Date @default(now())
+  updated_time DateTime @db.Date @default(now()) @updatedAt
+
+  slug         String   @unique              // URL 标识符
+  name         String                        // 工具名称：mvpfast
+  description  String?                       // 工具描述 (SEO Description)
+  url          String?                       // 官方链接
+  logo         String?                       // Logo URL
+
+  // TDK (SEO)
+  title        String?                       // 页面标题
+  keywords     String?                       // 页面关键词
+  ogImage      String?                       // OG 图片
+
+  // 推荐等级
+  level        String   @default("recommend") // recommend(推荐), alternative(替代), notRecommend(不推荐)
+  levelReason  String?                       // 推荐/不推荐原因
+
+  // 评价标准
+  learnCost    Int      @default(3)          // 上手成本 1-5
+  failRate     Int      @default(3)          // 失败概率 1-5
+  timeCost     Int      @default(3)          // 时间消耗 1-5
+
+  // 关联
+  tagIds       String[] @db.ObjectId         // 标签 IDs
+  actionTools  ActionTool[]                  // 关联的输出
+
+  // 状态
+  sortOrder    Int      @default(0)
+  isActive     Boolean  @default(true)
+}
+
+/// 工具标签
+model ToolTag {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time DateTime @db.Date @default(now())
+
+  slug         String   @unique              // 标签标识
+  name         String                        // 标签名称：前端框架、部署工具
+  color        String?                       // 标签颜色
+  sortOrder    Int      @default(0)
+  isActive     Boolean  @default(true)
+}
+
+/// Action 与 Tool 关系表
+model ActionTool {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time DateTime @db.Date @default(now())
+
+  actionId     String   @db.ObjectId
+  action       Action   @relation(fields: [actionId], references: [id], onDelete: Cascade)
+
+  toolId       String   @db.ObjectId
+  tool         Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  role         String   @default("配合")      // 首选、配合、部署
+  description  String?                       // 在该 Action 中的作用说明
+  sortOrder    Int      @default(0)
+
+  @@unique([actionId, toolId])
+  @@index([actionId])
+  @@index([toolId])
+}
+
+/// 站点配置
+model SiteConfig {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_time DateTime @db.Date @default(now())
+  updated_time DateTime @db.Date @default(now()) @updatedAt
+
+  key          String   @unique              // 配置键名
+  value        String                        // 配置值（可存 JSON 字符串）
+  description  String?                       // 配置说明
+  isActive     Boolean  @default(true)
+}
+

@@ -1,0 +1,107 @@
+[
+  {
+    "url": "https://docs.codecli.shop/",
+    "name": "CodeCli",
+    "description": "CodeCli 提供专业的 Claude Code API 中转服务，支持按量计费、日卡、月卡，稳定高速住宅 IP，让每位开发者都能享受 AI 编程助手带来的效率提升。",
+    "icon": "https://docs.codecli.shop/favicons/icon_32x32.png",
+    "title": "CodeCli - Claude Code API 服务",
+    "keywords": "Claude Code,Claude API,AI 编程,AI 代码助手,Anthropic,Claude,API 服务,按量计费,月卡,日卡",
+    "config": {
+      "url": "https://docs.codecli.shop/",
+      "slug": "codecli",
+      "category": "代码编辑",
+      "tags": [
+        "ai-coding",
+        "code-editor",
+        "must-have"
+      ],
+      "level": "recommend",
+      "levelReason": "",
+      "learnCost": 2,
+      "failRate": 1,
+      "timeCost": 1
+    },
+    "ogTitle": "CodeCli - Claude Code API 服务",
+    "ogSiteName": "CodeCli",
+    "twitterTitle": "CodeCli - Claude Code API 服务",
+    "ogImage": "http://localhost:3000/og-image.png"
+  },
+  {
+    "url": "https://www.mvpfast.top/",
+    "name": "MvpFast",
+    "description": "这是一款能帮助你快速构建个人网站的应用，使用最新的前端技术栈，集成登录、鉴权、手机、邮箱、数据库、博客、文章、支付等等网站所需要的功能，你只需要花几个小时开发你的核心功能就可以上线，一次购买，永久拥有",
+    "icon": "https://www.mvpfast.top/favicons/icon_32x32.png",
+    "title": "MvpFast-快速构建网站应用",
+    "keywords": "开发模板 快速开发 NextJs React TailWindCss Mongdb Atlas wechat 微信体系 永久拥有 快速构建 NextAuth 网站开发 Saas模板 微信登录",
+    "config": {
+      "url": "https://www.mvpfast.top/",
+      "slug": "mvpfast",
+      "category": "开发模板",
+      "tags": [
+        "ai-coding",
+        "frontend-template",
+        "must-have"
+      ],
+      "level": "recommend",
+      "levelReason": "快速创建个人应用，最短时间上线",
+      "learnCost": 1,
+      "failRate": 2,
+      "timeCost": 1
+    },
+    "ogTitle": "",
+    "ogSiteName": "",
+    "twitterTitle": ""
+  },
+  {
+    "url": "https://www.logocook.shop/",
+    "name": "LogoCook",
+    "description": "LogoCook logo厨师是专业的免费Logo制作工具，支持可爱、文字、手绘、动漫化等多种风格的专属Logo设计。在线编辑，一键生成，免费下载高清SVG/PNG格式，满足个人创作者和企业品牌的个性化Logo需求。",
+    "icon": "https://www.logocook.shop/favicon.ico",
+    "title": "LogoCook-logo厨师 | 免费可爱Logo制作工具 | 专属个性化Logo生成器",
+    "keywords": "LogoCook,logo厨师,免费Logo制作,可爱Logo生成器,动漫Logo设计,手绘Logo制作,文字Logo生成,个性化Logo工具,在线Logo编辑器,免费Logo下载,SVG Logo生成,PNG Logo制作,品牌Logo设计,创意Logo工具",
+    "config": {
+      "url": "https://www.logocook.shop/",
+      "slug": "logocook",
+      "category": "Logo 生成",
+      "tags": [
+        "ai-design",
+        "logo-generator",
+        "must-have"
+      ],
+      "level": "recommend",
+      "levelReason": "快速生成个性化的Logo",
+      "learnCost": 1,
+      "failRate": 1,
+      "timeCost": 2
+    },
+    "ogTitle": "LogoCook-logo厨师 | 免费可爱Logo制作工具",
+    "ogSiteName": "",
+    "twitterTitle": "LogoCook-logo厨师 | 免费可爱Logo制作工具"
+  },
+  {
+    "url": "https://www.codebox.club/",
+    "name": "CodeBox",
+    "description": "专业的智能二维码生成平台，支持动态二维码、带Logo二维码、彩色渐变二维码等多种样式。提供UTM参数追踪、扫码统计分析、餐饮模板、公众号二维码等功能。零设计门槛，一键生成专业级二维码，助力微信营销和品牌推广。",
+    "icon": "https://www.codebox.club/favicons/logo_128x128.png",
+    "title": "免费在线二维码制作工具 | 专业的二维码生成器 | 智能美化 + 短链追踪 - CodeBox | 码盒-CodeBox",
+    "keywords": "AI,二维码生成器,动态二维码,带logo二维码,二维码短链接,二维码统计工具,微信二维码,二维码美化,餐饮二维码,公众号二维码,UTM追踪,扫码统计,渐变二维码,彩色二维码,二维码营销平台,免费二维码生成器,中文二维码平台",
+    "config": {
+      "url": "https://www.codebox.club/",
+      "slug": "codebox",
+      "category": "二维码工具",
+      "tags": [
+        "qr-code-generator",
+        "must-have"
+      ],
+      "level": "recommend",
+      "levelReason": "快速生成二维码，方便分享",
+      "learnCost": 2,
+      "failRate": 1,
+      "timeCost": 1
+    },
+    "ogTitle": "免费在线二维码制作工具 | 专业的二维码生成器 | 智能美化 + 短链追踪 - CodeBox",
+    "ogSiteName": "CodeBox",
+    "twitterTitle": "免费在线二维码制作工具 | 专业的二维码生成器 | 智能美化 + 短链追踪 - CodeBox",
+    "ogImage": "https://www.codebox.club/logo.png"
+  }
+]
