@@ -20,7 +20,10 @@
       "Bash(npx ts-node:*)",
       "Bash(npx tsx:*)",
       "Bash(file:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git remote set-url:*)"
     ],
     "deny": [],
     "ask": []
