@@ -10,7 +10,7 @@ export const metadata = {
   description: '不是学习，不是收藏，是 2 小时后你能发出去的东西。技术人每天 2 小时，用 AI 工具完成一个可发布的输出。',
 };
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0f172a] via-[#1e293b] to-[#0f172a]">
       <Header />
