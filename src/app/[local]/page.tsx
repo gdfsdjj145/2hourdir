@@ -20,6 +20,7 @@ export default async function Home() {
         <DailyRecommend />
         <ActionPreview />
         <Suspense fallback={<div className="py-16 text-center text-slate-500">加载工具列表...</div>}>
+          {/* @ts-expect-error Async Server Component */}
           <ToolList />
         </Suspense>
       </main>
