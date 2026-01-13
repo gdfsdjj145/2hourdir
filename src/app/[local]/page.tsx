@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Header from '@/components/2hourbuilder/Header';
 import Hero from '@/components/2hourbuilder/Hero';
 import DailyRecommend from '@/components/2hourbuilder/DailyRecommend';
@@ -18,7 +19,9 @@ export default async function Home() {
         <Hero />
         <DailyRecommend />
         <ActionPreview />
-        <ToolList />
+        <Suspense fallback={<div className="py-16 text-center text-slate-500">加载工具列表...</div>}>
+          <ToolList />
+        </Suspense>
       </main>
       <Footer />
     </div>
