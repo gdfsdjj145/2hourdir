@@ -10,7 +10,9 @@ export const blogs = defineDocs({
   docs: {
     schema: frontmatterSchema.extend({
       index: z.boolean().default(false),
-      date: z.date()
+      date: z.date(),
+      category: z.string().optional(),
+      coverImage: z.string().optional(),
     }),
   },
   meta: {

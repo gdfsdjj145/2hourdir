@@ -4,6 +4,7 @@ import Hero from '@/components/2hourbuilder/Hero';
 import DailyRecommend from '@/components/2hourbuilder/DailyRecommend';
 import ActionPreview from '@/components/2hourbuilder/ActionPreview';
 import ToolList from '@/components/2hourbuilder/ToolList';
+import BlogSection from '@/components/2hourbuilder/BlogSection';
 import Footer from '@/components/2hourbuilder/Footer';
 
 export const metadata = {
@@ -23,6 +24,7 @@ export default async function Home() {
           {/* @ts-expect-error Async Server Component */}
           <ToolList />
         </Suspense>
+        <BlogSection />
       </main>
       <Footer />
     </div>

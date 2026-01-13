@@ -18,15 +18,14 @@ export async function generateMetadata() {
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     // @ts-ignore
-    <DocsLayout 
-      tree={blogSource.pageTree} 
+    <DocsLayout
+      tree={blogSource.pageTree}
+      {...baseOptions}
       sidebar={{
         enabled: false
       }}
     >
-      <div className="blog-layout">
-        {children}
-      </div>
+      {children}
     </DocsLayout>
   );
 }

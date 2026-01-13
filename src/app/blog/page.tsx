@@ -42,21 +42,6 @@ function processBlogData(blogPages: Array<Page<PageData>>): BlogPost[] {
     const data = page.data as BlogPageData;
     const rawDate = data.date ? new Date(data.date) : new Date();
 
-    const hash: Record<string, string> = {
-      '商用协议': '1.png',
-      '支付和备案问题': '2.png',
-    }
-
-    // 获取图片路径，如果标题不在hash中则使用默认图片
-    const getImagePath = (title: string | undefined) => {
-      if (!title) return '/blog/assets/1.png';
-      const imageName = hash[title];
-      if (!imageName) {
-        return '/blog/assets/1.png'; // 添加前导斜杠表示从根目录开始
-      }
-      return `/blog/assets/${imageName}`;  // 添加前导斜杠表示从根目录开始
-    };
-    
     return {
       slug: page.slugs,
       title: data.title || '无标题',
@@ -65,7 +50,7 @@ function processBlogData(blogPages: Array<Page<PageData>>): BlogPost[] {
       rawDate,
       authorName: 'MvpFast',
       category: data.category || '未分类',
-      coverImage: getImagePath(data.title),
+      coverImage: data.coverImage || '/blog/assets/1.png',
       tags: Array.isArray(data.tags) ? data.tags : data.tags ? [data.tags] : [],
       body: data.body,
       toc: data.toc,
@@ -131,14 +116,14 @@ export default function Blog() {
           </div>
           
           <div className="mb-6">
-            <Image 
-              src={selectedBlog.coverImage} 
+            <Image
+              src={selectedBlog.coverImage}
               alt={selectedBlog.title}
               width={800}
               height={400}
               loading="eager"
               priority
-              className="rounded-lg w-full h-auto object-cover"
+              className="rounded-lg w-full h-auto object-cover object-center"
               onError={(e) => {
                 console.error(`图片加载失败: ${selectedBlog.coverImage}`);
                 e.currentTarget.style.border = '1px solid red';
@@ -179,14 +164,14 @@ export default function Blog() {
             onClick={() => setSelectedBlog(blog)}
           >
             <div className="blog-card-image">
-              <Image 
-                src={blog.coverImage} 
+              <Image
+                src={blog.coverImage}
                 alt={blog.title}
                 width={400}
                 height={225}
                 loading="eager"
                 priority={index < 4} // 优先加载前4张图片
-                className="rounded-t-lg w-full h-auto object-cover"
+                className="rounded-t-lg w-full h-auto object-cover object-center"
                 onError={(e) => {
                   console.error(`图片加载失败: ${blog.coverImage}`);
                   e.currentTarget.style.border = '1px solid red';
