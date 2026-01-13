@@ -118,7 +118,7 @@ export async function createAction(data: {
   return prisma.action.create({
     data: {
       ...rest,
-      timeAllocation: timeAllocation as Prisma.InputJsonValue,
+      timeAllocation: timeAllocation as unknown as Prisma.InputJsonValue,
     },
   });
 }
@@ -149,7 +149,7 @@ export async function updateActionBySlug(
     where: { slug },
     data: {
       ...rest,
-      ...(timeAllocation && { timeAllocation: timeAllocation as Prisma.InputJsonValue }),
+      ...(timeAllocation && { timeAllocation: timeAllocation as unknown as Prisma.InputJsonValue }),
     },
   });
 }
