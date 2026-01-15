@@ -128,13 +128,11 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
     // 验证
     verification: {
       google: process.env.GOOGLE_SITE_VERIFICATION,
-      // yandex: 'yandex-verification-id',
-      // bing: 'bing-verification-id',
     },
   };
 }
 
-export default async function RootLayout({
+export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -143,35 +141,30 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="zh" data-theme="light" style={{ colorScheme: 'light' }}>
-      <head>
-        <GlobalJsonLd />
-        <meta name="color-scheme" content="light only" />
-      </head>
-      <body className={cn(fonts.variable, inter.className)}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-            <ThemeProviders attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light">
-              <SessionProvider>
-                <ReduxProvider>{children}</ReduxProvider>
-            </SessionProvider>
-            </ThemeProviders>
-        </NextIntlClientProvider>
-        <Toaster></Toaster>
-        <Analytics></Analytics>
-        <SpeedInsights></SpeedInsights>
-        <Script
-          strategy="lazyOnload"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-9B756NQSY`}
-        />
-        <Script id="ga-script" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-9B756NQSY');
-          `}
-        </Script>
-      </body>
-    </html>
+    <div className={cn(fonts.variable, inter.className)}>
+      <GlobalJsonLd />
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        <ThemeProviders attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light">
+          <SessionProvider>
+            <ReduxProvider>{children}</ReduxProvider>
+          </SessionProvider>
+        </ThemeProviders>
+      </NextIntlClientProvider>
+      <Toaster />
+      <Analytics />
+      <SpeedInsights />
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-9B756NQSYQ`}
+      />
+      <Script id="ga-script" strategy="lazyOnload">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-9B756NQSYQ');
+        `}
+      </Script>
+    </div>
   );
 }
