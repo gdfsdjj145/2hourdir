@@ -1,4 +1,6 @@
 import { Suspense } from 'react';
+import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import Header from '@/components/2hourbuilder/Header';
 import Hero from '@/components/2hourbuilder/Hero';
 import DailyRecommend from '@/components/2hourbuilder/DailyRecommend';
@@ -7,10 +9,24 @@ import ToolList from '@/components/2hourbuilder/ToolList';
 import BlogSection from '@/components/2hourbuilder/BlogSection';
 import Footer from '@/components/2hourbuilder/Footer';
 
-export const metadata = {
-  title: '2 Hour Builder - 你现在有2小时，交付一个真实输出',
-  description: '不是学习，不是收藏，是 2 小时后你能发出去的东西。技术人每天 2 小时，用 AI 工具完成一个可发布的输出。',
-};
+export async function generateMetadata({ params }: HomeProps): Promise<Metadata> {
+  const { local } = await params;
+  const t = await getTranslations('Metadata');
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `${siteUrl}/${local}`,
+      languages: {
+        'zh-CN': `${siteUrl}/zh`,
+        'en-US': `${siteUrl}/en`,
+      },
+    },
+  };
+}
 
 interface HomeProps {
   params: Promise<{ local: string }>;

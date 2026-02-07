@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getToolBySlug, getToolList } from '@/models/tool';
 import { getToolTagsByIds } from '@/models/toolTag';
+import { BreadcrumbJsonLd, SoftwareApplicationJsonLd } from '@/components/seo';
 import {
   LuChevronRight,
   LuHeart,
@@ -35,8 +36,9 @@ export async function generateStaticParams() {
 
 // 生成元数据
 export async function generateMetadata({ params }: ToolDetailPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, local } = await params;
   const tool = await getToolBySlug(slug);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
 
   if (!tool) {
     return {
@@ -44,14 +46,36 @@ export async function generateMetadata({ params }: ToolDetailPageProps): Promise
     };
   }
 
+  const pageUrl = `${siteUrl}/${local}/tools/${slug}`;
+
   return {
     title: tool.title || tool.name,
     description: tool.description,
     keywords: tool.keywords,
     openGraph: {
+      type: 'website',
+      locale: local === 'en' ? 'en_US' : 'zh_CN',
+      siteName: '2 Hour Builder',
+      title: tool.title || tool.name,
+      description: tool.description || '',
+      url: pageUrl,
+      images: tool.ogImage ? [{
+        url: tool.ogImage,
+        alt: tool.name,
+      }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
       title: tool.title || tool.name,
       description: tool.description || '',
       images: tool.ogImage ? [tool.ogImage] : [],
+    },
+    alternates: {
+      canonical: pageUrl,
+      languages: {
+        'zh-CN': `${siteUrl}/zh/tools/${slug}`,
+        'en-US': `${siteUrl}/en/tools/${slug}`,
+      },
     },
   };
 }
@@ -117,8 +141,22 @@ export default async function ToolDetailPage({ params }: ToolDetailPageProps) {
     return labels[type][score - 1] || '中等';
   };
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950">
+      <BreadcrumbJsonLd items={[
+        { name: '首页', url: `${siteUrl}/${local}` },
+        { name: '工具导航', url: `${siteUrl}/${local}` },
+        { name: tool.name, url: `${siteUrl}/${local}/tools/${slug}` },
+      ]} />
+      <SoftwareApplicationJsonLd
+        name={tool.name}
+        description={tool.description || ''}
+        url={tool.url || `${siteUrl}/${local}/tools/${slug}`}
+        applicationCategory="DeveloperApplication"
+        offers={{ price: 0, priceCurrency: 'CNY' }}
+      />
       {/* Header */}
       <header className="relative z-50 py-6 border-b border-slate-800/50">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">

@@ -8,6 +8,9 @@
 
 import { MetadataRoute } from 'next';
 import { APP_CONFIG } from '@/constants/config';
+import { getToolList } from '@/models/tool';
+import { blogSource } from '../../source';
+import { categories, outputs } from '@/components/2hourbuilder/data';
 
 /**
  * 获取网站基础 URL
@@ -94,27 +97,62 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // TODO: 添加动态博客文章
-  // const posts = await getBlogPosts();
-  // for (const post of posts) {
-  //   entries.push({
-  //     url: `${baseUrl}/blog/${post.slug}`,
-  //     lastModified: post.updatedAt,
-  //     changeFrequency: 'weekly',
-  //     priority: 0.7,
-  //   });
-  // }
+  // 动态工具页面
+  try {
+    const tools = await getToolList({ limit: 200 });
+    for (const tool of tools) {
+      for (const locale of locales) {
+        entries.push({
+          url: `${baseUrl}/${locale}/tools/${tool.slug}`,
+          lastModified: tool.updated_time || now,
+          changeFrequency: 'weekly',
+          priority: 0.7,
+        });
+      }
+    }
+  } catch {
+    // 构建时数据库可能不可用，跳过
+  }
 
-  // TODO: 添加动态文档页面
-  // const docs = await getDocPages();
-  // for (const doc of docs) {
-  //   entries.push({
-  //     url: `${baseUrl}/docs/${doc.slug}`,
-  //     lastModified: doc.updatedAt,
-  //     changeFrequency: 'weekly',
-  //     priority: 0.6,
-  //   });
-  // }
+  // 动态博客文章
+  try {
+    const blogPages = blogSource.getPages();
+    for (const page of blogPages) {
+      const slug = page.slugs.join('/');
+      entries.push({
+        url: `${baseUrl}/blog/${slug}`,
+        lastModified: now,
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+    }
+  } catch {
+    // 跳过
+  }
+
+  // 分类页面
+  for (const category of categories) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/category/${category.id}`,
+        lastModified: now,
+        changeFrequency: 'weekly',
+        priority: 0.6,
+      });
+    }
+  }
+
+  // 产出页面
+  for (const output of outputs) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/output/${output.id}`,
+        lastModified: now,
+        changeFrequency: 'weekly',
+        priority: 0.6,
+      });
+    }
+  }
 
   return entries;
 }

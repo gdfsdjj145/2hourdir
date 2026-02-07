@@ -19,14 +19,29 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ id: string; local: string }> }) {
+  const { id, local } = await params;
   const category = getCategory(id);
   if (!category) return {};
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+  const pageUrl = `${siteUrl}/${local}/category/${id}`;
 
   return {
     title: `${category.title} - 2 Hour Builder`,
     description: category.description,
+    keywords: `${category.title}, ${category.scenarios?.join(', ') || ''}, 2 Hour Builder, 开发工具`,
+    openGraph: {
+      type: 'website',
+      locale: local === 'en' ? 'en_US' : 'zh_CN',
+      siteName: '2 Hour Builder',
+      title: `${category.title} - 2 Hour Builder`,
+      description: category.description,
+      url: pageUrl,
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
   };
 }
 

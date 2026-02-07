@@ -11,14 +11,30 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ id: string; local: string }> }) {
+  const { id, local } = await params;
   const output = getOutput(id);
   if (!output) return {};
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+  const pageUrl = `${siteUrl}/${local}/output/${id}`;
+  const category = getCategory(output.categoryId);
 
   return {
     title: `${output.title} - 2 Hour Builder`,
     description: output.description,
+    keywords: `${output.title}, ${category?.title || ''}, ${output.output}, 2 Hour Builder, 开发工具`,
+    openGraph: {
+      type: 'article',
+      locale: local === 'en' ? 'en_US' : 'zh_CN',
+      siteName: '2 Hour Builder',
+      title: `${output.title} - 2 Hour Builder`,
+      description: output.description,
+      url: pageUrl,
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
   };
 }
 
