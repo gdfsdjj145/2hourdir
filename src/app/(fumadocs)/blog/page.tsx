@@ -48,7 +48,7 @@ function processBlogData(blogPages: Array<Page<PageData>>): BlogPost[] {
       description: data.description || '',
       date: formatDate(rawDate),
       rawDate,
-      authorName: 'MvpFast',
+      authorName: '2 Hour Builder',
       category: data.category || '未分类',
       coverImage: data.coverImage || '/blog/assets/1.png',
       tags: Array.isArray(data.tags) ? data.tags : data.tags ? [data.tags] : [],

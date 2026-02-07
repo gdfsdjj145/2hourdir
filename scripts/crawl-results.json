@@ -29,10 +29,10 @@
   {
     "url": "https://www.mvpfast.top/",
     "name": "MvpFast",
-    "description": "这是一款能帮助你快速构建个人网站的应用，使用最新的前端技术栈，集成登录、鉴权、手机、邮箱、数据库、博客、文章、支付等等网站所需要的功能，你只需要花几个小时开发你的核心功能就可以上线，一次购买，永久拥有",
+    "description": "MvpFast - 使用最新技术栈快速构建你的网站应用",
     "icon": "https://www.mvpfast.top/favicons/icon_32x32.png",
-    "title": "MvpFast-快速构建网站应用",
-    "keywords": "开发模板 快速开发 NextJs React TailWindCss Mongdb Atlas wechat 微信体系 永久拥有 快速构建 NextAuth 网站开发 Saas模板 微信登录",
+    "title": "MvpFast-快速构建网站应用 | MvpFast-快速构建网站应用",
+    "keywords": "MvpFast 网站开发 NextJs React TailWindCss",
     "config": {
       "url": "https://www.mvpfast.top/",
       "slug": "mvpfast",
@@ -48,9 +48,9 @@
       "failRate": 2,
       "timeCost": 1
     },
-    "ogTitle": "",
+    "ogTitle": "MvpFast-快速构建网站应用 | MvpFast-快速构建网站应用",
     "ogSiteName": "",
-    "twitterTitle": ""
+    "twitterTitle": "MvpFast-快速构建网站应用"
   },
   {
     "url": "https://www.logocook.shop/",
@@ -103,5 +103,152 @@
     "ogSiteName": "CodeBox",
     "twitterTitle": "免费在线二维码制作工具 | 专业的二维码生成器 | 智能美化 + 短链追踪 - CodeBox",
     "ogImage": "https://www.codebox.club/logo.png"
+  },
+  {
+    "url": "https://chatgpt.com/",
+    "name": "chatgpt",
+    "description": "",
+    "icon": "",
+    "title": "",
+    "keywords": "",
+    "config": {
+      "url": "https://chatgpt.com/",
+      "slug": "chatgpt",
+      "category": "AI 对话",
+      "tags": [
+        "ai-chat",
+        "must-have"
+      ],
+      "level": "recommend",
+      "levelReason": "全球最流行的 AI 对话助手，支持多模态",
+      "learnCost": 1,
+      "failRate": 2,
+      "timeCost": 1
+    },
+    "error": "Request failed with status code 403"
+  },
+  {
+    "url": "https://claude.ai/",
+    "name": "claude",
+    "description": "",
+    "icon": "",
+    "title": "",
+    "keywords": "",
+    "config": {
+      "url": "https://claude.ai/",
+      "slug": "claude",
+      "category": "AI 对话",
+      "tags": [
+        "ai-chat",
+        "ai-coding",
+        "must-have"
+      ],
+      "level": "recommend",
+      "levelReason": "编程能力强，长文本理解出色",
+      "learnCost": 1,
+      "failRate": 2,
+      "timeCost": 1
+    },
+    "error": "Request failed with status code 403"
+  },
+  {
+    "url": "https://gemini.google.com/",
+    "name": "Gemini",
+    "description": "认识 Gemini：Google 旗下的 AI 助理。在写作、规划和开展头脑风暴等方面获得帮助。体验生成式 AI 的强大功能。",
+    "icon": "https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg",
+    "title": "‎Google Gemini",
+    "keywords": "",
+    "config": {
+      "url": "https://gemini.google.com/",
+      "slug": "gemini",
+      "category": "AI 对话",
+      "tags": [
+        "ai-chat"
+      ],
+      "level": "alternative",
+      "levelReason": "Google 出品，与 Google 生态深度集成",
+      "learnCost": 1,
+      "failRate": 2,
+      "timeCost": 1
+    },
+    "ogTitle": "‎Google Gemini",
+    "ogSiteName": "Gemini",
+    "twitterTitle": "‎Google Gemini",
+    "ogImage": "https://www.gstatic.com/lamda/images/gemini_aurora_thumbnail_4g_e74822ff0ca4259beb718.png"
+  },
+  {
+    "url": "https://www.deepseek.com/",
+    "name": "DeepSeek",
+    "description": "深度求索（DeepSeek），成立于2023年，专注于研究世界领先的通用人工智能底层模型与技术，挑战人工智能前沿性难题。基于自研训练框架、自建智算集群和万卡算力等资源，深度求索团队仅用半年时间便已发布并开源多个百亿级参数大模型，如DeepSeek-LLM通用大语言模型、DeepSeek-Coder代码大模型，并在2024年1月率先开源国内首个MoE大模型（DeepSeek-MoE），各大模型在公开评测榜单及真实样本外的泛化效果均有超越同级别模型的出色表现。和 DeepSeek AI 对话，轻松接入 API。",
+    "icon": "https://www.deepseek.com/favicon.ico",
+    "title": "DeepSeek | 深度求索",
+    "keywords": "深度求索, AGI, 人工智能底层模型, 开源模型, LLM, DeepSeek, DeepSeek Coder, DeepSeek Chat, DeepSeek Platform",
+    "config": {
+      "url": "https://www.deepseek.com/",
+      "slug": "deepseek",
+      "category": "AI 对话",
+      "tags": [
+        "ai-chat",
+        "ai-coding"
+      ],
+      "level": "recommend",
+      "levelReason": "国产开源大模型，编程和推理能力强",
+      "learnCost": 1,
+      "failRate": 2,
+      "timeCost": 1
+    },
+    "ogTitle": "DeepSeek | 深度求索",
+    "ogSiteName": "",
+    "twitterTitle": "DeepSeek | 深度求索",
+    "ogImage": "https://cdn.deepseek.com/images/deepseek-chat-open-graph-image.jpeg"
+  },
+  {
+    "url": "https://kimi.moonshot.cn/",
+    "name": "Kimi AI 官网",
+    "description": "月之暗面 (Moonshot AI) 旗下 Kimi K2.5 模型发布！引领开源视觉编程，同步开启 Agent 集群预览版。从像素级网页复刻到专家级办公交付，助你高效搞定复杂任务。立即访问 Kimi 官网体验。",
+    "icon": "https://statics.moonshot.cn/kimi-web-seo/favicon.ico",
+    "title": "Kimi AI 官网 - K2.5 上线",
+    "keywords": "Kimi, AI, K2.5, Kimi K2.5, Kimi 官网, 视觉编程, Agent 集群, PPT, Excel, PDF, Moonshot, Moonshot AI, 月之暗面, 深度研究, 建站",
+    "config": {
+      "url": "https://kimi.moonshot.cn/",
+      "slug": "kimi",
+      "category": "AI 对话",
+      "tags": [
+        "ai-chat"
+      ],
+      "level": "alternative",
+      "levelReason": "超长上下文支持，适合长文档处理",
+      "learnCost": 1,
+      "failRate": 1,
+      "timeCost": 1
+    },
+    "ogTitle": "",
+    "ogSiteName": "",
+    "twitterTitle": ""
+  },
+  {
+    "url": "https://tongyi.aliyun.com/",
+    "name": "通义",
+    "description": "遇见，通义 Meet TongYi, Ask me anything. 通义官网重磅升级，汇聚全系列大模型、最新行业资讯与前沿应用，一览无余，尽在掌握。通义千问具备自然语言理解、文本生成、视觉理解、音频理解等多种能力。",
+    "icon": "https://img.alicdn.com/imgextra/i4/O1CN01Qd3F9s1ilWmLJo56P_!!6000000004453-55-tps-51-51.svg",
+    "title": "通义",
+    "keywords": "通义、tongyi、通义千问qwen、通义万相wan、通义百聆fun、大模型、AI、阿里云、人工智能、语言模型、视觉生成、语音识别",
+    "config": {
+      "url": "https://tongyi.aliyun.com/",
+      "slug": "tongyi",
+      "category": "AI 对话",
+      "tags": [
+        "ai-chat"
+      ],
+      "level": "alternative",
+      "levelReason": "阿里出品，中文理解能力好，生态丰富",
+      "learnCost": 1,
+      "failRate": 1,
+      "timeCost": 1
+    },
+    "ogTitle": "通义",
+    "ogSiteName": "",
+    "twitterTitle": "通义",
+    "ogImage": "https://img.alicdn.com/imgextra/i3/O1CN01k8nC9v1NYbgbBe3VM_!!6000000001582-2-tps-100-100.png"
   }
 ]

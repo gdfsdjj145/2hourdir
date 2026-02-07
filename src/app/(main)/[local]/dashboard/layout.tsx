@@ -38,7 +38,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   // 开发环境模拟用户
   const devUser = {
     id: 'dev-user',
-    email: 'dev@mvpfast.top',
+    email: 'dev@2hourbuilder.com',
     phone: null,
     wechatOpenId: null,
     nickName: 'Dev User',
@@ -243,7 +243,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                 <Sparkles size={20} className="text-white" />
               </div>
               <span className="text-xl font-bold text-primary">
-                MvpFast
+                2 Hour Builder
               </span>
             </Link>
           ) : (
@@ -498,7 +498,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
         {/* Footer */}
         <footer className="py-4 px-6 bg-white border-t border-gray-100 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} MvpFast. All rights reserved.
+          © {new Date().getFullYear()} 2 Hour Builder. All rights reserved.
         </footer>
       </div>
     </div>

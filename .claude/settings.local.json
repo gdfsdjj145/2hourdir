@@ -24,7 +24,12 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(git remote set-url:*)",
-      "Bash(git show:*)"
+      "Bash(git show:*)",
+      "WebFetch(domain:openrouter.ai)",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); free=[m for m in data[''''data''''] if '''':free'''' in m[''''id''''] and ''''text'''' in str\\(m.get\\(''''architecture'''',{}\\).get\\(''''input_modalities'''',[]\\)\\)]; print\\(''''\\\\n''''.join\\([f\"\"{m[''''id'''']} - {m[''''name'''']}\"\" for m in free[:15]]\\)\\)\")",
+      "WebSearch",
+      "Bash(npx skills:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

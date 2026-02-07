@@ -477,8 +477,8 @@ interface SoftwareApplicationJsonLdProps {
  * @example
  * ```tsx
  * <SoftwareApplicationJsonLd
- *   name="MVP Fast"
- *   description="快速构建 MVP 的 SaaS 模板"
+ *   name="2 Hour Builder"
+ *   description="把零碎时间变成真实产出的系统"
  *   url="https://example.com"
  *   offers={{ price: 0, priceCurrency: "CNY" }}
  * />

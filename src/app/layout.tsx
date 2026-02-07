@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'MVP Fast',
-  description: 'MVP Fast - 快速构建你的产品',
+  title: '2 Hour Builder',
+  description: '2 Hour Builder - 把零碎时间变成真实产出',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

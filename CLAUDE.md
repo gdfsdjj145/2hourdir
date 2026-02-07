@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with this codebase.
 
 ## Project Overview
 
-**mvpfast-web** is a full-stack SaaS template built with Next.js 15 (App Router), designed for rapid MVP development with Chinese market integrations.
+**2 Hour Builder** is a productivity platform for developers, built with Next.js 15 (App Router), helping turn fragmented time into real output.
 
 ## Tech Stack
 

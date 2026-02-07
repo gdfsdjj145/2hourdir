@@ -1,6 +1,7 @@
 /**
  * 网站信息爬取脚本
  * 用于获取网站的 icon 和简介，并保存到数据库
+ * 支持使用 OpenRouter AI 根据 TDK 自动生成网站简介
  *
  * 使用方法:
  * npx tsx scripts/crawl-sites.ts
@@ -8,12 +9,36 @@
  * 参数:
  * --save    保存到数据库
  * --dry-run 仅显示结果，不保存（默认）
+ * --no-ai   跳过 AI 简介生成
+ *
+ * 环境变量:
+ * OPENROUTER_API_KEY - OpenRouter API 密钥（可选，用于 AI 简介生成）
  */
 
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import * as fs from 'fs';
 import * as path from 'path';
+
+// 手动加载 .env 文件
+function loadEnv() {
+  const envPath = path.join(__dirname, '../.env');
+  if (fs.existsSync(envPath)) {
+    const content = fs.readFileSync(envPath, 'utf-8');
+    content.split('\n').forEach(line => {
+      const match = line.match(/^([^#=]+)=(.*)$/);
+      if (match) {
+        const key = match[1].trim();
+        const value = match[2].trim().replace(/^["']|["']$/g, '');
+        if (!process.env[key]) {
+          process.env[key] = value;
+        }
+      }
+    });
+  }
+}
+loadEnv();
+
 import prisma from '../src/lib/prisma';
 
 interface SiteInfo {
@@ -30,6 +55,25 @@ interface SiteInfo {
   ogTitle?: string;        // OG 标题
   ogSiteName?: string;     // OG 站点名称
   twitterTitle?: string;   // Twitter 标题
+  // AI 生成的简介
+  aiDescription?: string;  // AI 根据 TDK 生成的网站简介
+}
+
+// OpenRouter API 响应类型
+interface OpenRouterResponse {
+  id: string;
+  choices: {
+    message: {
+      content: string;
+      role: string;
+    };
+    finish_reason: string;
+  }[];
+  usage?: {
+    prompt_tokens: number;
+    completion_tokens: number;
+    total_tokens: number;
+  };
 }
 
 interface SiteConfig {
@@ -42,6 +86,83 @@ interface SiteConfig {
   learnCost?: number;     // 上手成本 1-5
   failRate?: number;      // 失败概率 1-5
   timeCost?: number;      // 时间消耗 1-5
+}
+
+// OpenRouter API 配置
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '';
+const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const AI_MODEL = 'allenai/molmo-2-8b:free'; // 免费模型
+
+// 调试：检查 API Key 是否加载
+if (OPENROUTER_API_KEY) {
+  console.log(`[DEBUG] OPENROUTER_API_KEY loaded: ${OPENROUTER_API_KEY.slice(0, 15)}...`);
+} 
+
+/**
+ * 使用 AI 根据 TDK 生成网站简介
+ */
+async function generateAIDescription(siteInfo: SiteInfo): Promise<string> {
+  if (!OPENROUTER_API_KEY) {
+    console.log('  ⚠️ 未配置 OPENROUTER_API_KEY，跳过 AI 生成');
+    return '';
+  }
+
+  // 如果没有足够的信息，跳过 AI 生成
+  if (!siteInfo.title && !siteInfo.description && !siteInfo.keywords) {
+    return '';
+  }
+
+  const prompt = `你是一个专业的产品文案撰写人。请根据以下网站的 TDK（标题、描述、关键词）信息，生成一段简洁的网站介绍。
+
+网站信息：
+- 标题 (Title): ${siteInfo.title || '未提供'}
+- 描述 (Description): ${siteInfo.description || '未提供'}
+- 关键词 (Keywords): ${siteInfo.keywords || '未提供'}
+- 网站名称: ${siteInfo.name || '未提供'}
+- URL: ${siteInfo.url}
+
+要求：
+1. 用中文撰写
+2. 简洁明了，控制在 50-100 字以内
+3. 突出网站的核心功能和价值
+4. 不要使用营销性过强的词汇
+5. 只输出简介内容，不要有其他说明文字`;
+
+  try {
+    const response = await axios.post<OpenRouterResponse>(
+      OPENROUTER_API_URL,
+      {
+        model: AI_MODEL,
+        messages: [
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        max_tokens: 200,
+        temperature: 0.7,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://2hourbuilder.com',
+          'X-Title': '2Hour Builder Crawler',
+        },
+        timeout: 30000,
+      }
+    );
+
+    const content = response.data.choices?.[0]?.message?.content?.trim() || '';
+    if (content) {
+      console.log(`  🤖 AI 简介: ${content.slice(0, 50)}...`);
+    }
+    return content;
+  } catch (error: any) {
+    const errorDetail = error.response?.data ? JSON.stringify(error.response.data) : error.message;
+    console.log(`  ⚠️ AI 生成失败: ${errorDetail}`);
+    return '';
+  }
 }
 
 // 要爬取的网站列表（可配置更多信息）
@@ -89,7 +210,74 @@ const sites: SiteConfig[] = [
     learnCost: 2,
     failRate: 1,
     timeCost: 1,
-  }
+  },
+  // ========== AI 模型 ==========
+  {
+    url: 'https://chatgpt.com/',
+    slug: 'chatgpt',
+    category: 'AI 对话',
+    tags: ['ai-chat', 'must-have'],
+    level: 'recommend',
+    levelReason: '全球最流行的 AI 对话助手，支持多模态',
+    learnCost: 1,
+    failRate: 2,
+    timeCost: 1,
+  },
+  {
+    url: 'https://claude.ai/',
+    slug: 'claude',
+    category: 'AI 对话',
+    tags: ['ai-chat', 'ai-coding', 'must-have'],
+    level: 'recommend',
+    levelReason: '编程能力强，长文本理解出色',
+    learnCost: 1,
+    failRate: 2,
+    timeCost: 1,
+  },
+  {
+    url: 'https://gemini.google.com/',
+    slug: 'gemini',
+    category: 'AI 对话',
+    tags: ['ai-chat'],
+    level: 'alternative',
+    levelReason: 'Google 出品，与 Google 生态深度集成',
+    learnCost: 1,
+    failRate: 2,
+    timeCost: 1,
+  },
+  {
+    url: 'https://www.deepseek.com/',
+    slug: 'deepseek',
+    category: 'AI 对话',
+    tags: ['ai-chat', 'ai-coding'],
+    level: 'recommend',
+    levelReason: '国产开源大模型，编程和推理能力强',
+    learnCost: 1,
+    failRate: 2,
+    timeCost: 1,
+  },
+  {
+    url: 'https://kimi.moonshot.cn/',
+    slug: 'kimi',
+    category: 'AI 对话',
+    tags: ['ai-chat'],
+    level: 'alternative',
+    levelReason: '超长上下文支持，适合长文档处理',
+    learnCost: 1,
+    failRate: 1,
+    timeCost: 1,
+  },
+  {
+    url: 'https://tongyi.aliyun.com/',
+    slug: 'tongyi',
+    category: 'AI 对话',
+    tags: ['ai-chat'],
+    level: 'alternative',
+    levelReason: '阿里出品，中文理解能力好，生态丰富',
+    learnCost: 1,
+    failRate: 1,
+    timeCost: 1,
+  },
 ];
 
 async function fetchSiteInfo(config: SiteConfig): Promise<SiteInfo & { config: SiteConfig }> {
@@ -221,7 +409,8 @@ async function saveToDatabase(results: (SiteInfo & { config: SiteConfig })[]) {
       const data = {
         slug: site.config.slug,
         name: site.name || site.config.slug,
-        description: site.description || site.config.levelReason || '',
+        // 优先使用 AI 简介，其次是原始 description，最后是 levelReason
+        description: site.aiDescription || site.description || site.config.levelReason || '',
         url: site.url,
         logo: site.icon || null,
         // TDK
@@ -278,6 +467,22 @@ async function main() {
 
   console.log('\n爬取完成!\n');
 
+  // 使用 AI 生成简介
+  const skipAI = args.includes('--no-ai');
+  if (!skipAI && OPENROUTER_API_KEY) {
+    console.log('========== AI 生成简介 ==========\n');
+    for (const site of results) {
+      if (!site.error) {
+        console.log(`处理: ${site.name || site.config.slug}`);
+        site.aiDescription = await generateAIDescription(site);
+        await new Promise(resolve => setTimeout(resolve, 1000)); // AI 调用间隔
+      }
+    }
+    console.log('\nAI 简介生成完成!\n');
+  } else if (!OPENROUTER_API_KEY) {
+    console.log('提示: 设置 OPENROUTER_API_KEY 环境变量可启用 AI 简介生成\n');
+  }
+
   // 输出结果
   console.log('========== 爬取结果 ==========\n');
 
@@ -297,6 +502,10 @@ async function main() {
     console.log(`  分类: ${site.config.category || '-'}`);
     console.log(`  标签: ${(site.config.tags || []).join(', ') || '(无)'}`);
     console.log(`  推荐等级: ${site.config.level || 'recommend'}`);
+    if (site.aiDescription) {
+      console.log(`  -------- AI 简介 --------`);
+      console.log(`  ${site.aiDescription}`);
+    }
     if (site.error) {
       console.log(`  ⚠️ 爬取错误: ${site.error}`);
     }

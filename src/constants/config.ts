@@ -17,9 +17,9 @@
  */
 export const APP_CONFIG = {
   /** 应用名称 */
-  NAME: 'MVP Fast',
+  NAME: '2 Hour Builder',
   /** 应用描述 */
-  DESCRIPTION: '快速构建 MVP 的 SaaS 模板',
+  DESCRIPTION: '把零碎时间变成真实产出的系统',
   /** 默认语言 */
   DEFAULT_LOCALE: 'zh',
   /** 支持的语言列表 */

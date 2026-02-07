@@ -6,7 +6,7 @@ import { baseOptions } from '../layout.config';
 
 export async function generateMetadata() {
   return {
-    title: 'MvpFast 知识博客',
+    title: '2 Hour Builder 博客',
     description: '一些分享内容',
     keywords: '知识博客, 分享内容',
     icons: {

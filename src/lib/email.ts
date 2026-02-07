@@ -28,12 +28,12 @@ const sendEmail = async (mailInfo: MailInfo) => {
       .join('');
     const result = await transporter.sendMail({
       to: mailInfo.to,
-      from: `MvpFast <${process.env.MAIL_USER}>`,
-      subject: 'MvpFast登录验证码',
+      from: `2 Hour Builder <${process.env.MAIL_USER}>`,
+      subject: '2 Hour Builder 登录验证码',
       html: `
         <div style="font-family: Arial, sans-serif; text-align: center; background-color: #f9f9f9; padding: 40px; border-radius: 10px; max-width: 600px; margin: auto;">
-          <h1 style="color: #333;">MvpFast</h1>
-          <h2 style="color: #333;">欢迎使用MvpFast服务🎉</h2>
+          <h1 style="color: #333;">2 Hour Builder</h1>
+          <h2 style="color: #333;">欢迎使用 2 Hour Builder 服务🎉</h2>
           <p style="font-size: 20px; color: #333;">你的验证码是:</p>
           <div style="display: flex; justify-content: center; margin: 20px 0;">
             ${styledCode}

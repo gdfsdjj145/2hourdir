@@ -1,5 +1,5 @@
 {
-  "name": "mvpfast",
+  "name": "2hourbuilder",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -14,8 +14,8 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "docker:build": "docker build -t mvpfast-web .",
-    "docker:run": "docker run -p 3000:3000 --env-file .env mvpfast-web",
+    "docker:build": "docker build -t 2hourbuilder .",
+    "docker:run": "docker run -p 3000:3000 --env-file .env 2hourbuilder",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f",

@@ -116,7 +116,7 @@ export default function BlogSection() {
                     </div>
                     <div className="flex items-center gap-1">
                       <LuUser className="w-3 h-3" />
-                      <span>MvpFast</span>
+                      <span>2 Hour Builder</span>
                     </div>
                   </div>
                 </div>

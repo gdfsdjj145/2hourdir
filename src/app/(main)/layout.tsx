@@ -49,9 +49,9 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
     },
     description,
     keywords,
-    authors: [{ name: 'MVP Fast Team' }],
-    creator: 'MVP Fast',
-    publisher: 'MVP Fast',
+    authors: [{ name: '2 Hour Builder Team' }],
+    creator: '2 Hour Builder',
+    publisher: '2 Hour Builder',
     formatDetection: {
       email: false,
       address: false,

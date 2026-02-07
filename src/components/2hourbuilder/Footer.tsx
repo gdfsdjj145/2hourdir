@@ -50,16 +50,6 @@ export default function Footer() {
                   方法论
                 </Link>
               </li>
-              <li>
-                <a
-                  href="https://mvpfast.top"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-slate-500 hover:text-white transition-colors"
-                >
-                  MvpFast
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -97,18 +87,6 @@ export default function Footer() {
         <div className="pt-6 border-t border-slate-700/50 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-slate-600">
             &copy; {new Date().getFullYear()} 2 Hour Builder. All rights reserved.
-          </p>
-          <p className="text-xs text-slate-600">
-            使用{' '}
-            <a
-              href="https://mvpfast.top"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-purple-400 hover:text-purple-300"
-            >
-              MvpFast
-            </a>{' '}
-            开发
           </p>
         </div>
       </div>

@@ -1,9 +1,14 @@
-import { LuExternalLink, LuStar, LuSparkles } from 'react-icons/lu';
+import Link from 'next/link';
+import { LuChevronRight, LuStar, LuSparkles } from 'react-icons/lu';
 import { getToolList } from '@/models/tool';
 import { getToolTagList } from '@/models/toolTag';
 import ToolImage from './ToolImage';
 
-export default async function ToolList() {
+interface ToolListProps {
+  locale?: string;
+}
+
+export default async function ToolList({ locale = 'zh' }: ToolListProps) {
   // 获取工具和标签数据
   const [tools, tags] = await Promise.all([
     getToolList(),
@@ -50,11 +55,9 @@ export default async function ToolList() {
                   .slice(0, 2);
 
                 return (
-                  <a
+                  <Link
                     key={tool.id}
-                    href={tool.url || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`/${locale}/tools/${tool.slug}`}
                     className="group p-5 rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-800/40 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:-translate-y-1"
                   >
                     <div className="flex items-start justify-between mb-3">
@@ -86,12 +89,12 @@ export default async function ToolList() {
                           </div>
                         </div>
                       </div>
-                      <LuExternalLink className="w-4 h-4 text-slate-500 group-hover:text-purple-400 transition-colors" />
+                      <LuChevronRight className="w-4 h-4 text-slate-500 group-hover:text-purple-400 transition-colors" />
                     </div>
                     <p className="text-sm text-slate-400 line-clamp-2">
                       {tool.levelReason || tool.description}
                     </p>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -110,11 +113,9 @@ export default async function ToolList() {
                   .slice(0, 1);
 
                 return (
-                  <a
+                  <Link
                     key={tool.id}
-                    href={tool.url || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`/${locale}/tools/${tool.slug}`}
                     className="group p-4 rounded-xl bg-slate-800/40 border border-slate-700/50 hover:border-slate-600 transition-all duration-300"
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -130,7 +131,7 @@ export default async function ToolList() {
                           {tool.name}
                         </h4>
                       </div>
-                      <LuExternalLink className="w-3 h-3 text-slate-600 group-hover:text-slate-400 transition-colors" />
+                      <LuChevronRight className="w-3 h-3 text-slate-600 group-hover:text-slate-400 transition-colors" />
                     </div>
                     <p className="text-xs text-slate-500 mb-2 line-clamp-2">
                       {tool.levelReason || tool.description}
@@ -146,7 +147,7 @@ export default async function ToolList() {
                         </span>
                       ))}
                     </div>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
