@@ -31,7 +31,8 @@
       "Bash(npx skills:*)",
       "Bash(grep:*)",
       "Bash(lsof:*)",
-      "Bash(xargs kill:*)"
+      "Bash(xargs kill:*)",
+      "Bash(pnpm:*)"
     ],
     "deny": [],
     "ask": []

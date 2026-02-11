@@ -1,11 +1,11 @@
 // @ts-nocheck -- skip type checking
-import * as blogs_0 from "../content/blog/xhs-prompt1.md?collection=blogs&hash=1768290399597"
 import * as docs_5 from "../content/docs/question.mdx?collection=docs&hash=1768290399597"
 import * as docs_4 from "../content/docs/introduction.mdx?collection=docs&hash=1768290399597"
 import * as docs_3 from "../content/docs/getting-started.mdx?collection=docs&hash=1768290399597"
 import * as docs_2 from "../content/docs/features.mdx?collection=docs&hash=1768290399597"
 import * as docs_1 from "../content/docs/commercial.mdx?collection=docs&hash=1768290399597"
 import * as docs_0 from "../content/docs/api-reference.mdx?collection=docs&hash=1768290399597"
+import * as blogs_0 from "../content/blog/xhs-prompt1.md?collection=blogs&hash=1768290399597"
 import { _runtime } from "fumadocs-mdx"
 import * as _source from "../source.config"
 export const blogs = _runtime.docs<typeof _source.blogs>([{ info: {"path":"xhs-prompt1.md","absolutePath":"/Users/dujiajian/2hourdir/content/blog/xhs-prompt1.md"}, data: blogs_0 }], [])
